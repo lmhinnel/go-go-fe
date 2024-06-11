@@ -125,12 +125,16 @@ const fetchData = async () => {
       .then((_res) => (res = _res))
       .catch((_err) => (err = _err));
   }
+
   if (res?.data?.success) {
+    console.log(res);
     message.success(res?.data?.message).then(() => location.reload());
-  } else
+  } else {
+    console.log(err);
     message.error(
       err?.response?.data?.message || err?.message || "SERVER ERROR"
     );
+  }
 };
 
 const commonResolve = () => Promise.resolve();

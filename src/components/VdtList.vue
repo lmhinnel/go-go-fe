@@ -108,6 +108,7 @@ const fetchData = (limit, offset) =>
   axios
     .get(`${API_URL}/api/v1/students?limit=${limit}&offset=${offset}`)
     .then((res) => {
+      console.log(res);
       studentData.value = [];
       totalStudent.value = res?.data?.count;
       return res?.data?.data || [];
@@ -121,7 +122,9 @@ const fetchData = (limit, offset) =>
         });
       });
     })
-    .catch(() => {});
+    .catch((err) => {
+      console.log(err);
+    });
 
 const reloadData = () =>
   fetchData(10, 0).then(() => {
@@ -142,11 +145,15 @@ const handleDelete = (id) => {
   axios
     .delete(`${API_URL}/api/v1/students/${id}`)
     .then((res) => {
+      console.log(res);
       res?.data?.success
         ? message.success(res?.data?.message)
         : message.error(res?.data?.message || "SERVER ERROR");
     })
-    .catch((err) => message.error(err?.message));
+    .catch((err) => {
+      console.log(err);
+      message.error(err?.message);
+    });
 };
 
 export default {
