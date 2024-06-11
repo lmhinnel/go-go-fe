@@ -14,7 +14,7 @@ spec:
     - name: "8081"
       port: 8081
       targetPort: 8080
-      nodePort: 99172
+      nodePort: 31172
   selector:
     io.kompose.service: web
   type: NodePort
