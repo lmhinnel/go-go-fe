@@ -77,6 +77,7 @@ import {
   InfoCircleTwoTone,
 } from "@ant-design/icons-vue";
 import { message } from "ant-design-vue";
+import { genJwt } from "@/utils/jwt";
 
 const columns = computed(() =>
   ["id", "name", "gender", "university", "action"].map((key) => {
@@ -106,7 +107,11 @@ const model = ref({
 
 const fetchData = (limit, offset) =>
   axios
-    .get(`${API_URL}/api/v1/students?limit=${limit}&offset=${offset}`)
+    .get(`${API_URL}/api/v1/students?limit=${limit}&offset=${offset}`, {
+      headers: {
+        Authorization: genJwt(),
+      },
+    })
     .then((res) => {
       console.log(res);
       studentData.value = [];
@@ -143,7 +148,11 @@ const handleModel = (data, type) => {
 
 const handleDelete = (id) => {
   axios
-    .delete(`${API_URL}/api/v1/students/${id}`)
+    .delete(`${API_URL}/api/v1/students/${id}`, {
+      headers: {
+        Authorization: genJwt(),
+      },
+    })
     .then((res) => {
       console.log(res);
       res?.data?.success

@@ -67,6 +67,7 @@
 
 <script>
 import { API_URL } from "@/utils/constans";
+import { genJwt } from "@/utils/jwt";
 import { message } from "ant-design-vue";
 import axios from "axios";
 import dayjs from "dayjs";
@@ -121,7 +122,11 @@ const fetchData = async () => {
       .catch((_err) => (err = _err));
   } else {
     await axios
-      .post(`${API_URL}/api/v1/students`, student)
+      .post(`${API_URL}/api/v1/students`, student, {
+        headers: {
+          Authorization: genJwt(),
+        },
+      })
       .then((_res) => (res = _res))
       .catch((_err) => (err = _err));
   }
