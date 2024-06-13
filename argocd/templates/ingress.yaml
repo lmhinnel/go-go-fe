@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-go-hehe
+  namespace: {{ .Values.namespace }}
+  annotations:
+    ingress.class: "haproxy"
+spec:
+  ingressClassName: ingress-go-hehe
+  rules:
+    - host: go-go-hehe.com
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          frontend:
+            service:
+              name: web
+              port:
+                number: 8081
